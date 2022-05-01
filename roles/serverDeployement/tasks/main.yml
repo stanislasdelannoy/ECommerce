@@ -45,7 +45,7 @@
 
   
 - name: Setup Symfony project
-  become: yes
+  become_user: topachaton
   community.general.composer:
     command: install
     working_dir: /var/www/app/app
