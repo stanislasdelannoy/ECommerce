@@ -26,15 +26,15 @@
     force: yes
   when: filesFound.matched != 0
 
-- name: Copy content htaccess into server conf
-  become: yes
-  shell:
-    cat /var/www/app/public/.htaccess > /etc/apache2/sites-enabled/000-default.conf
+# - name: Copy content htaccess into server conf
+#   become: yes
+#   shell:
+#     cat /var/www/app/public/.htaccess > /etc/apache2/sites-enabled/000-default.conf
 
-- name: Delete htaccess
-  file:
-    path: /var/www/app/public/.htaccess
-    state: absent
+# - name: Delete htaccess
+#   file:
+#     path: /var/www/app/public/.htaccess
+#     state: absent
 
 - name: Permissions management
   file:
