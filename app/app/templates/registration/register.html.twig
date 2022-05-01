@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h1 style="text-align: center; margin-top: 15px">Register</h1>
+<div style=" margin: 20px 600px 20px 600px;">
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.login) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.firstname) }}
+        {{ form_row(registrationForm.lastname) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+</div>
+        <div style="text-align: center">
+        <button style="border: black 1px solid; background-color: gainsboro; " type="submit" class="btn">Register</button>
+        </div>
+    {{ form_end(registrationForm) }}
+{% endblock %}

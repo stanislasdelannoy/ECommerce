@@ -1,0 +1,7 @@
+home:
+  path: /api/home
+  controller: App\Controller\HomeController::index
+
+app_logout:
+  path: /api/logout
+  methods: GET

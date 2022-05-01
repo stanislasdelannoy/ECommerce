@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block title %}Homepage{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="jumbotron">
+        <h1> Site E Commerce </h1>
+    </div>
+</div>
+    <div class="container">
+        <h2>Nos produits</h2>
+    <div class="row flex">
+        {% for product in products %}
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body">
+                        {% if product.filename %}
+                            <img src="/images/products/{{ product.filename }} " alt="card image" style="width: 100%; height: 200px">
+                        {% endif %}
+                        <h5 class="card-title">
+                            <a href=" {{  path('product.show', {id: product.id, slug:product.slug}) }}">{{ product.name }}</a>
+                        </h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <div class="text-primary">{{ product.price }}€</div>
+                        <a href="{{ path('cart.add', {'id': product.id}) }}" class="btn btn-primary mt-2 float-end">Ajouter au panier</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

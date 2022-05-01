@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block title %}Homepage{% endblock %}
+{% block body %}
+    <div class="container mt-4 mb-4">
+        <div class="jumbotron">
+            <h1>Gérer les produits </h1>
+        </div>
+    </div>
+    <div class="container">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        {% for message in app.flashes('deleted') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Actions</th>
+                <a class="btn btn-info mt-2 mb-4 " href="{{ path('admin.product.new') }}">Créer un nouveau produit</a>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price }}€</td>
+                <td>
+                    <a href="{{ path('admin.product.edit', {id:product.id})}}" class="btn btn-success" >Editer</a>
+                    <form method="POST" action="{{ path('admin.product.delete', {id:product.id }) }}" style="display: inline-block" onsubmit="return confirm('Etes vous sur de vouloir supprimer le produit ?')">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token("delete" ~ product.id) }}">
+                        <button class="btn btn-danger">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

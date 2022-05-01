@@ -1,0 +1,57 @@
+---
+- name: Create a directory 
+  ansible.builtin.file:
+    path: /var/www/app
+    state: directory
+    mode: '0755'
+  
+- name: Check if folder is empty
+  find:
+    paths: '/var/www/app/'
+  register: filesFound
+
+- name: git clone project to remote
+  become: yes
+  git:
+    repo: https://github.com/stanislasdelannoy/ECommerce.git
+    dest: /var/www/app
+    single_branch: yes
+  when: filesFound.matched == 0
+
+- name: Pull from git
+  git:
+    repo: https://github.com/stanislasdelannoy/ECommerce.git
+    dest: /var/www/app
+    update: yes
+    force: yes
+  when: filesFound.matched != 0
+
+- name: Copy content htaccess into server conf
+  become: yes
+  shell:
+    cat /var/www/app/public/.htaccess > /etc/apache2/sites-enabled/000-default.conf
+
+- name: Delete htaccess
+  file:
+    path: /var/www/app/public/.htaccess
+    state: absent
+
+- name: Permissions management
+  file:
+    path: /var/www/app
+    state: directory
+    recurse: yes
+    mode: '0777'
+
+  
+- name: Setup Symfony project
+  become: yes
+  community.general.composer:
+    command: install
+    working_dir: /var/www/app
+
+- name: Restart Apache2 server
+  service:
+    name: apache2
+    state: restarted
+

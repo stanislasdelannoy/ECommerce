@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block title %} Produits {% endblock %}
+{% block body %}
+    <div class="container">
+            <h1> Mon panier </h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Quantité</th>
+                <th>Prix</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.product.description }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.product.price }}€</td>
+                    <td>
+                        <form method="POST" action="{{ path('admin.product.delete', {id:item.product.id }) }}" style="display: inline-block" onsubmit="return confirm('Etes vous sur de vouloir supprimer le produit ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token("delete" ~ item.product.id) }}">
+                            <a href="{{ path('cart.delete', {'id' : item.product.id}) }}" class="btn btn-danger">Supprimer</a>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3"> Total : </td>
+                <td>{{ total }}€</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+{% endblock %}

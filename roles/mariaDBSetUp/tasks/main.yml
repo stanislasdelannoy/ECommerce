@@ -1,0 +1,16 @@
+---
+  - name: create a db
+    community.mysql.mysql_db:
+      name: topachaton
+      state: present
+      login_user: root
+      login_unix_socket: /run/mysqld/mysqld.sock
+
+  - name: create database user
+    community.mysql.mysql_user:
+      name: user
+      password: password
+      priv: '*.*:ALL,GRANT'
+      login_user: root
+      login_unix_socket : /run/mysqld/mysqld.sock
+      state: present

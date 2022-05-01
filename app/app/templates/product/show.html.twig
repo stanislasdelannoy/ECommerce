@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{%  block body %}
+<div class="container mt-4">
+    {% if product.filename %}
+        <img src="/images/products/{{ product.filename }} " alt="card image" style="width: 100%; height: auto">
+    {% endif %}
+    <h1>{{ product.name }}</h1>
+    <p>{{ product.description }}</p>
+</div>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
