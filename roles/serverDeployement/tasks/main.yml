@@ -48,7 +48,7 @@
   become: yes
   community.general.composer:
     command: install
-    working_dir: /var/www/app
+    working_dir: /var/www/app/app
 
 - name: Restart Apache2 server
   service:

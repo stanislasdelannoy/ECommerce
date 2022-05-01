@@ -1,9 +1,0 @@
----
-  - name: Deploy a E-Commerce server
-    hosts: server1
-    roles:
-      - checkDistrib
-      - basicInstall
-      - phpSetUp
-      # - mariaDBSetUp
-      - serverDeployement
