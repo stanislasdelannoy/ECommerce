@@ -1,0 +1,11 @@
+---
+  - name: install basic packages 
+    apt :
+      pkg: 
+      - sudo 
+      - vim 
+      - git
+      - net-tools
+      - python3
+      - python3-pip
+      - apache2
